@@ -1,6 +1,13 @@
 USE employeeConnection;
 
-INSERT INTO department (name)
-INSERT ('Engineer'),('Management'),('HR'),('Sales')
+-- Department 
+INSERT INTO department(name)
+VALUES ('Engineer'),('Management'),('HR'),('Sales')
 
-INSERT INTO role()
+-- Role
+INSERT INTO role(title, salary, department_id)
+VALUES ("Management", 150000, 1),("Engineer", 125000, 2),("Sales", 110000, 3),("HR", 75000, 4)
+
+-- Employee
+INSERT INTO employee(first_name, last_name, role_id)
+VALUES ('Kama' 'Casta', 1, NULL),('Jon'')
