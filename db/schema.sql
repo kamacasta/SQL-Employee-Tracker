@@ -1,11 +1,11 @@
 -- Drop table
-DROP DATABASE IF EXISTS Employee;
+DROP DATABASE IF EXISTS employee;
 
 -- Create database
-CREATE DATABASE Employee;
+CREATE DATABASE employee;
 
 -- Use database
-USE Employee;
+USE employee;
 
 -- Department Table
 CREATE TABLE department(
@@ -22,13 +22,13 @@ CREATE TABLE role(
     CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES department(id)
 );
 
--- Employee Table
-CREATE TABLE Employee(
+-- employee Table
+CREATE TABLE employee(
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(30),
     last_name VARCHAR(30),
     role_id INT,
     CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES role(id),
     manager_id INT
-    CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES Employee(id)
+    CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES employee(id)
 )
