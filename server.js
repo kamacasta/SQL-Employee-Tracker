@@ -176,12 +176,25 @@ function addRole() {
 
 // Function for adding a department
 function addDepartment() {
-    console.log(`
+  prompt([
+    {
+      type: "input",
+      name: "name",
+      message: "What department would you like to add",
+    },
+  ]).then(function (answer) {
+    db.query("INSERT INTO department SET?", [answer], function (err) {
+      if (err) throw err;
+      console.log(`
     ====================
       Added Department
     ====================
-    `)
-    // const sql = 
+    `);
+    initalSetup();
+    });
+  });
+
+  // const sql =
 }
 
 initalSetup();
