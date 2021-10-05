@@ -100,21 +100,76 @@ function viewAllDepartments() {
 
 // Function for adding employees
 function addEmployees() {
-    console.log(`
-    ====================
-       Added Employee
-    ====================
-    `)
+    prompt([
+        {
+            type:'input',
+            name:'first_name',
+            message: 'What is the employees first name?'
+        },
+        {
+            type:'input',
+            name:'last_name',
+            message: 'What is the employees last name?'
+        },
+        {
+            type:'input',
+            name:'role_id',
+            message: 'What is the employees last name?'
+        },
+        {
+            type:'input',
+            name:'manager_id',
+            message: 'What is the employees last name?'
+        },
+    ]).then(function (answer) {
+        db.query('INSERT INTO employee SET', 
+        [answer],
+        function (err) {
+            console.log(`
+            ====================
+               Added Employee
+            ====================
+            `)
+            initalSetup();
+        }
+        )
+    })
     // const sql = ""
 }
 
 // Function for adding 
 function addRole() {
-    console.log(`
-    ====================
-        Role Added
-    ====================
-    `)
+    db.query('select id, name from department', (err, department) => {
+        prompt([
+            {
+                type: 'input',
+                name: 'title',
+                message: 'What is the role you would like to give?'
+            },
+            {   
+                type: 'input',
+                name: 'title',
+                message: 'What is the salary of the role you would like to add'
+            },
+            {   
+                type: 'input',
+                name: 'title',
+                message: 'What is the department id for the current role'
+            }
+        ]).then(function (answer) {
+            db.query('INSERT INTO role SET ?',
+            [answer],
+            function(err) {
+                if (err) throw err;
+                console.log(`
+                ====================
+                    Role Added
+                ====================
+            `);
+            })
+        })
+    })
+ 
     // const sql = 
 }
 
