@@ -166,6 +166,7 @@ function addRole() {
                     Role Added
                 ====================
             `);
+            initalSetup();
             })
         })
     })
@@ -182,3 +183,5 @@ function addDepartment() {
     `)
     // const sql = 
 }
+
+initalSetup();
