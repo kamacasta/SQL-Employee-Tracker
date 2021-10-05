@@ -196,5 +196,9 @@ function addDepartment() {
 
   // const sql =
 }
+db.connect((err) => {
+    if (err) throw err;
+    console.log("db connected")
+})
 
 initalSetup();
