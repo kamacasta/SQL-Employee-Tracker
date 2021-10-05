@@ -47,6 +47,7 @@ prompt([
     }
 });
 
+// Function for viewing all employees
 function viewAllEmployees() {
     console.log(`
     ====================
@@ -63,26 +64,41 @@ function viewAllEmployees() {
     // const sql = "" 
 }
 
+// Function for viewing all roles
 function viewAllRoles() {
     console.log(`
     ====================
           Roles
     ====================
     `)
-
+    db.query(' SELECT role.title, role.salary, department.name FROM role LEFT JOIN department ON role.department_id = department_id',
+    function (err, res) {
+        if(err) throw err;
+        console.consoleTable(res);
+        initalSetup();
+    }
+    );
     // const sql = ""
-    
 }
 
+// Function to view all departments
 function viewAllDepartments() {
     console.log(`
     ====================
         Departments
     ====================
     `)
+    db.query('SELECT * FROM department',
+    function (err, res) {
+        if(err) throw err;
+        console.consoleTable(res);
+        initalSetup();
+    }
+    );
     // const sql = ""
 }
 
+// Function for adding employees
 function addEmployees() {
     console.log(`
     ====================
@@ -92,6 +108,7 @@ function addEmployees() {
     // const sql = ""
 }
 
+// Function for adding 
 function addRole() {
     console.log(`
     ====================
@@ -101,6 +118,7 @@ function addRole() {
     // const sql = 
 }
 
+// Function for adding a department
 function addDepartment() {
     console.log(`
     ====================
