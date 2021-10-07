@@ -23,6 +23,7 @@ CSS
 Javascript
 Node.js
 Express.js
+mysql
 
 ### Installation
 
