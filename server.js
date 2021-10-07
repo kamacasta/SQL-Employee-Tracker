@@ -2,7 +2,8 @@ const inquirer = require('inquirer');
 const db = require('./db/conncection');
 const consoleTable = require('console.table');
 const { prompt } = require('inquirer');
-// const mysql = require('mysql2');
+const connection = require('./db/conncection');
+const mysql = require('mysql2');
 
 function initalSetup() {
   console.log(`
@@ -43,7 +44,7 @@ prompt([
     } else if (answers.list === "Add Department") {
         addDepartment();
     } else if (answers.list === "Leave") {
-        db.end();
+        connection.end();
     }
 });
 
@@ -54,7 +55,7 @@ function viewAllEmployees() {
          Employees
     ====================
     `)
-    db.query('SELECT employee.first_name, employee.last_name, role.title, department.name, role.salary, manager.first_name, manager.lastname AS "manager_lastname" FROM employee LEFT JOIN role ON employee.role_id = role_id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON employee.manager_id = manager.id;',
+    connection.query('SELECT employee.first_name, employee.last_name, role.title, department.name, role.salary, manager.first_name, manager.lastname AS "manager_lastname" FROM employee LEFT JOIN role ON employee.role_id = role_id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON employee.manager_id = manager.id;',
     function (err, res) {
         if(err) throw err;
         console.consoleTable(res);
@@ -71,7 +72,7 @@ function viewAllRoles() {
           Roles
     ====================
     `)
-    db.query(' SELECT role.title, role.salary, department.name FROM role LEFT JOIN department ON role.department_id = department_id',
+    connection.query(' SELECT role.title, role.salary, department.name FROM role LEFT JOIN department ON role.department_id = department_id',
     function (err, res) {
         if(err) throw err;
         console.consoleTable(res);
@@ -88,7 +89,7 @@ function viewAllDepartments() {
         Departments
     ====================
     `)
-    db.query('SELECT * FROM department',
+    connection.query('SELECT * FROM department',
     function (err, res) {
         if(err) throw err;
         console.consoleTable(res);
@@ -122,7 +123,7 @@ function addEmployees() {
             message: 'What is the employees last name?'
         },
     ]).then(function (answer) {
-        db.query('INSERT INTO employee SET', 
+        connection.query('INSERT INTO employee SET', 
         [answer],
         function (err) {
             console.log(`
@@ -139,7 +140,7 @@ function addEmployees() {
 
 // Function for adding 
 function addRole() {
-    db.query('select id, name from department', (err, department) => {
+    connection.query('select id, name from department', (err, department) => {
         prompt([
             {
                 type: 'input',
@@ -157,7 +158,7 @@ function addRole() {
                 message: 'What is the department id for the current role'
             }
         ]).then(function (answer) {
-            db.query('INSERT INTO role SET ?',
+            connection.query('INSERT INTO role SET ?',
             [answer],
             function(err) {
                 if (err) throw err;
@@ -183,7 +184,7 @@ function addDepartment() {
       message: "What department would you like to add",
     },
   ]).then(function (answer) {
-    db.query("INSERT INTO department SET?", [answer], function (err) {
+    connection.query("INSERT INTO department SET?", [answer], function (err) {
       if (err) throw err;
       console.log(`
     ====================
@@ -196,9 +197,9 @@ function addDepartment() {
 
   // const sql =
 }
-db.connect((err) => {
+connection.connect((err) => {
     if (err) throw err;
-    console.log("db connected")
+    console.log("db")
 })
 
 initalSetup();
